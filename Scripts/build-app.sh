@@ -3,6 +3,7 @@
 #
 #   Scripts/build-app.sh            release build, ad-hoc signed (runs on this Mac)
 #   CONFIG=debug Scripts/build-app.sh
+#   UNIVERSAL=1 Scripts/build-app.sh   Apple Silicon + Intel, for releases
 #
 # Ad-hoc signing is enough for local use. A build for other people must be
 # signed with a Developer ID and notarized; set SIGN_IDENTITY for that.
@@ -13,8 +14,12 @@ CONFIG="${CONFIG:-release}"
 SIGN_IDENTITY="${SIGN_IDENTITY:--}"
 APP="build/E-Rechnung Check.app"
 
-swift build -c "$CONFIG" --product ERechnungCheck
-BIN="$(swift build -c "$CONFIG" --show-bin-path)/ERechnungCheck"
+ARCH_FLAGS=()
+if [[ "${UNIVERSAL:-}" == 1 ]]; then ARCH_FLAGS=(--arch arm64 --arch x86_64); fi
+
+# The ${…+…} form keeps bash 3.2 (macOS) from rejecting an empty array.
+swift build -c "$CONFIG" ${ARCH_FLAGS[@]+"${ARCH_FLAGS[@]}"} --product ERechnungCheck
+BIN="$(swift build -c "$CONFIG" ${ARCH_FLAGS[@]+"${ARCH_FLAGS[@]}"} --show-bin-path)/ERechnungCheck"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
