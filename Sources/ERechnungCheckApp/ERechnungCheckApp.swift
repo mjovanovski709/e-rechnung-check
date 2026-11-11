@@ -22,10 +22,28 @@ struct ERechnungCheckApp: App {
         }
         .commands {
             CommandGroup(replacing: .newItem) {
+                NewInvoiceButton(lang: model.lang)
+                    .keyboardShortcut("n")
                 Button(model.lang == .de ? "Öffnen …" : "Open…") { model.chooseFile() }
                     .keyboardShortcut("o")
             }
         }
+
+        Window(model.lang == .de ? "Neue E-Rechnung" : "New e-invoice", id: "create") {
+            CreateView()
+                .environmentObject(model)
+        }
+        .defaultSize(width: 720, height: 860)
+    }
+}
+
+/// Opens the window for creating an e-invoice.
+struct NewInvoiceButton: View {
+    let lang: Lang
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Button(lang == .de ? "Neue E-Rechnung …" : "New e-invoice…") { openWindow(id: "create") }
     }
 }
 
@@ -99,6 +117,7 @@ final class AppModel: ObservableObject {
 
 struct ContentView: View {
     @EnvironmentObject private var model: AppModel
+    @Environment(\.openWindow) private var openWindow
     @State private var isTargeted = false
 
     var body: some View {
@@ -111,9 +130,9 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity)
                 }
             } else {
-                DropPrompt(lang: model.lang, isTargeted: isTargeted, isLoading: model.isLoading) {
-                    model.chooseFile()
-                }
+                DropPrompt(lang: model.lang, isTargeted: isTargeted, isLoading: model.isLoading,
+                           choose: { model.chooseFile() },
+                           create: { openWindow(id: "create") })
             }
         }
         .background(Color(nsColor: .windowBackgroundColor))
@@ -135,6 +154,12 @@ struct ContentView: View {
         }
         .toolbar {
             ToolbarItemGroup {
+                Button {
+                    openWindow(id: "create")
+                } label: {
+                    Label(model.lang == .de ? "Neue E-Rechnung" : "New e-invoice", systemImage: "square.and.pencil")
+                }
+                .help(model.lang == .de ? "E-Rechnung erstellen" : "Create an e-invoice")
                 if model.report != nil {
                     Button {
                         model.chooseFile()
@@ -159,6 +184,7 @@ struct DropPrompt: View {
     let isTargeted: Bool
     let isLoading: Bool
     let choose: () -> Void
+    var create: (() -> Void)?
 
     var body: some View {
         VStack(spacing: 18) {
@@ -181,6 +207,10 @@ struct DropPrompt: View {
                 Button(lang == .de ? "Datei auswählen …" : "Choose a file…", action: choose)
                     .controlSize(.large)
                     .keyboardShortcut(.defaultAction)
+            }
+            if let create {
+                Button(lang == .de ? "Oder eine E-Rechnung erstellen …" : "Or create an e-invoice…", action: create)
+                    .buttonStyle(.link)
             }
             Label(lang == .de ? "Die Datei verlässt Ihren Mac nicht." : "The file never leaves your Mac.", systemImage: "lock")
                 .font(.callout)
@@ -208,6 +238,20 @@ enum Snapshot {
         let input = arguments[index + 1]
         let output = URL(fileURLWithPath: arguments[index + 2])
         let lang: Lang = arguments.contains("--en") ? .en : .de
+
+        if input == "create" {
+            // The form uses AppKit-backed controls, which ImageRenderer
+            // draws blank, so this one goes through a real hosting view.
+            AppModel.shared.lang = lang
+            if arguments.contains("--demo") { CreateModel.shared.draft = CreateModel.demoDraft() }
+            let view = NSHostingView(rootView: CreateView().environmentObject(AppModel.shared))
+            view.frame = CGRect(x: 0, y: 0, width: 720, height: 2350)
+            view.layoutSubtreeIfNeeded()
+            guard let bitmap = view.bitmapImageRepForCachingDisplay(in: view.bounds) else { exit(1) }
+            view.cacheDisplay(in: view.bounds, to: bitmap)
+            let png = bitmap.representation(using: .png, properties: [:])
+            exit((try? png?.write(to: output)) != nil ? 0 : 1)
+        }
 
         let content: AnyView
         if input == "-" {

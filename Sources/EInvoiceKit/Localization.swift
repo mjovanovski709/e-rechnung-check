@@ -9,7 +9,7 @@ public enum Lang: String, Sendable, CaseIterable {
         (Locale.preferredLanguages.first ?? "en").lowercased().hasPrefix("de") ? .de : .en
     }
 
-    var locale: Locale { Locale(identifier: self == .de ? "de_DE" : "en_GB") }
+    public var locale: Locale { Locale(identifier: self == .de ? "de_DE" : "en_GB") }
 }
 
 /// A sentence in both languages.

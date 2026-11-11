@@ -2,11 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Sandboxed, may read only files the user picks or drops, and has no
-	     network entitlement at all: the app cannot send an invoice anywhere. -->
+	<!-- Sandboxed: may read files the user picks or drops and write only
+	     where the user saves in the Save dialog. No network entitlement at
+	     all: the app cannot send an invoice anywhere. -->
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
-	<key>com.apple.security.files.user-selected.read-only</key>
+	<key>com.apple.security.files.user-selected.read-write</key>
 	<true/>
 </dict>
 </plist>
