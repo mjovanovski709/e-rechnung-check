@@ -86,6 +86,38 @@ advice.
 | `Scripts/build-app.sh` | Wraps the app binary into a `.app` |
 | `Scripts/make-icon.swift` | Draws the app icon and writes `Resources/AppIcon.icns` |
 
+## Support
+
+E-Rechnung Check is free and stays free for everyone. If it saves you time,
+you can support its development through
+[GitHub Sponsors](https://github.com/sponsors/mjovanovski709).
+
+**Hinweis: Unterstützung ist eine Schenkung**
+
+Eine Unterstützung über GitHub Sponsors ist eine freiwillige Schenkung an den
+Entwickler und keine Bezahlung. Mit Ihrer Unterstützung erklären Sie sich
+damit einverstanden, dass
+
+- Sie dafür keine Gegenleistung erhalten und keinen Anspruch erwerben,
+  insbesondere nicht auf Support, Fehlerbehebungen, neue Funktionen, eine
+  Nennung oder eine bestimmte Weiterentwicklung;
+- die App für alle kostenlos bleibt, ob jemand unterstützt oder nicht;
+- es keine Spende im steuerlichen Sinn ist: Der Entwickler ist keine
+  gemeinnützige Organisation, stellt keine Zuwendungsbestätigung
+  (Spendenquittung) aus und auch keine Rechnung. Die Zahlung ist in der Regel
+  nicht steuerlich absetzbar.
+
+Die Zahlung wird von GitHub abgewickelt; dafür gelten die Bedingungen von
+GitHub Sponsors. Sie können eine laufende Unterstützung dort jederzeit beenden.
+
+*In English:* support through GitHub Sponsors is a voluntary gift to the
+developer, not a payment. By supporting the project you agree that you
+receive nothing in return and acquire no claim to support, fixes, features,
+a mention or any particular development; that the app stays free for
+everyone; and that it is not a tax-deductible donation: no donation receipt
+and no invoice are issued. GitHub processes the payment under its GitHub
+Sponsors terms, and you can end recurring support there at any time.
+
 ## License
 
 MIT, see [LICENSE](LICENSE). The sample invoices in
