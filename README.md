@@ -1,3 +1,5 @@
+<img src="docs/icon.png" width="128" alt="App icon" align="right">
+
 # E-Rechnung Check
 
 A small Mac app that answers one question about an invoice file: **is this
@@ -82,3 +84,9 @@ advice.
 | `Sources/ERechnungCheckApp` | The SwiftUI app |
 | `Resources` | `Info.plist` (document types, Finder action), the English action title and sandbox entitlements for the app bundle |
 | `Scripts/build-app.sh` | Wraps the app binary into a `.app` |
+| `Scripts/make-icon.swift` | Draws the app icon and writes `Resources/AppIcon.icns` |
+
+## License
+
+MIT, see [LICENSE](LICENSE). The sample invoices in
+`Tests/EInvoiceKitTests/Fixtures` keep their own license (Apache 2.0).

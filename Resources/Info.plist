@@ -11,6 +11,8 @@
 	<!-- Placeholder: replace with your own reverse-domain identifier before release. -->
 	<key>CFBundleIdentifier</key>
 	<string>io.github.erechnung-check</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

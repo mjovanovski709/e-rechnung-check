@@ -21,6 +21,7 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN" "$APP/Contents/MacOS/ERechnungCheck"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
 cp -R Resources/en.lproj "$APP/Contents/Resources/"
+cp Resources/AppIcon.icns "$APP/Contents/Resources/"   # regenerate with Scripts/make-icon.swift
 
 codesign --force --sign "$SIGN_IDENTITY" --options runtime \
   --entitlements Resources/ERechnungCheck.entitlements "$APP"
