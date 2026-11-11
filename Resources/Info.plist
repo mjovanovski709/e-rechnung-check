@@ -8,9 +8,8 @@
 	<string>E-Rechnung Check</string>
 	<key>CFBundleExecutable</key>
 	<string>ERechnungCheck</string>
-	<!-- Placeholder: replace with your own reverse-domain identifier before release. -->
 	<key>CFBundleIdentifier</key>
-	<string>io.github.erechnung-check</string>
+	<string>io.github.mjovanovski709.erechnung-check</string>
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundlePackageType</key>
