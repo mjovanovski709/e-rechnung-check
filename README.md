@@ -3,7 +3,9 @@
 A small Mac app that answers one question about an invoice file: **is this
 really an e-invoice, and what does it actually say?**
 
-Drop a PDF or XML file on the window. The app tells you
+Drop a PDF or XML file on the window, or right-click it in Finder and choose
+**Quick Actions › E-Rechnung prüfen** ("Check e-invoice" on an English
+system). The app tells you
 
 - whether the file is an e-invoice (ZUGFeRD / Factur-X, XRechnung, Peppol) and
   in which profile, including the two ZUGFeRD profiles (MINIMUM, BASIC WL)
@@ -39,6 +41,11 @@ Scripts/build-app.sh
 open "build/E-Rechnung Check.app"
 ```
 
+The Finder action appears once macOS has seen the app, normally after the
+first launch. If it does not show up, look under Quick Actions › Customize
+(or System Settings › Keyboard › Keyboard Shortcuts › Services) and switch
+it on there.
+
 The script produces an ad-hoc signed app that runs on the Mac it was built
 on. A build for other people needs a Developer ID signature and notarization
 (`SIGN_IDENTITY=… Scripts/build-app.sh`, then `notarytool`).
@@ -73,5 +80,5 @@ advice.
 | `Sources/EInvoiceKit` | Reading and checking: PDF attachments, CII and UBL parsing, profiles, checks, PDF-versus-XML comparison |
 | `Sources/erechnung-check` | Command-line tool |
 | `Sources/ERechnungCheckApp` | The SwiftUI app |
-| `Resources` | `Info.plist` and sandbox entitlements for the app bundle |
+| `Resources` | `Info.plist` (document types, Finder action), the English action title and sandbox entitlements for the app bundle |
 | `Scripts/build-app.sh` | Wraps the app binary into a `.app` |

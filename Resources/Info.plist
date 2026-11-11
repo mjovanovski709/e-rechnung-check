@@ -64,5 +64,29 @@
 			</array>
 		</dict>
 	</array>
+	<!-- Finder Quick Action: right-click a PDF or XML file, then
+	     Quick Actions (or Services) > "E-Rechnung prüfen". -->
+	<key>NSServices</key>
+	<array>
+		<dict>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>E-Rechnung prüfen</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>checkInvoice</string>
+			<key>NSPortName</key>
+			<string>E-Rechnung Check</string>
+			<key>NSSendFileTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+				<string>public.xml</string>
+			</array>
+			<!-- An empty context makes the service enabled by default. -->
+			<key>NSRequiredContext</key>
+			<dict/>
+		</dict>
+	</array>
 </dict>
 </plist>

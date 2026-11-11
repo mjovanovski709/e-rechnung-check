@@ -30,9 +30,25 @@ struct ERechnungCheckApp: App {
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        NSApp.servicesProvider = self
+    }
+
     /// "Open With" in Finder and files dropped on the Dock icon arrive here.
     func application(_ application: NSApplication, open urls: [URL]) {
         guard let url = urls.first else { return }
+        Task { @MainActor in AppModel.shared.load(url) }
+    }
+
+    /// The Finder Quick Action "E-Rechnung prüfen" (NSServices in Info.plist).
+    /// The system grants the sandbox read access to the files it passes here.
+    @objc func checkInvoice(_ pasteboard: NSPasteboard, userData: String?, error: AutoreleasingUnsafeMutablePointer<NSString?>) {
+        let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL] ?? []
+        guard let url = urls.first else {
+            error.pointee = "No file received." as NSString
+            return
+        }
+        NSApp.activate(ignoringOtherApps: true)
         Task { @MainActor in AppModel.shared.load(url) }
     }
 
