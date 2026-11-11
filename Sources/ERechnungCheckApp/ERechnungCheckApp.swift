@@ -168,12 +168,17 @@ struct ContentView: View {
                     }
                     .help(model.lang == .de ? "Andere Datei prüfen" : "Check another file")
                 }
-                Picker("", selection: $model.lang) {
-                    Text("Deutsch").tag(Lang.de)
-                    Text("English").tag(Lang.en)
+                // A menu-style picker in the toolbar shows its (empty) title
+                // instead of the selection on recent macOS, and a Menu shows
+                // only an icon, so the two languages are a segmented switch.
+                Picker(model.lang == .de ? "Sprache" : "Language", selection: $model.lang) {
+                    Text("DE").tag(Lang.de)
+                    Text("EN").tag(Lang.en)
                 }
-                .pickerStyle(.menu)
-                .help(model.lang == .de ? "Sprache" : "Language")
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .fixedSize()
+                .help(model.lang == .de ? "Sprache: Deutsch oder Englisch" : "Language: German or English")
             }
         }
     }
