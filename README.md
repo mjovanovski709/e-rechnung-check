@@ -81,8 +81,11 @@ first launch. If it does not show up, look under Quick Actions › Customize
 it on there.
 
 The script produces an ad-hoc signed app that runs on the Mac it was built
-on. A build for other people needs a Developer ID signature and notarization
-(`SIGN_IDENTITY=… Scripts/build-app.sh`, then `notarytool`).
+on. A build for other people needs a Developer ID signature and notarization;
+the script does both when given a signing identity and a `notarytool`
+credentials profile (see the comment at the top of `Scripts/build-app.sh`).
+The [releases](https://github.com/mjovanovski709/e-rechnung-check/releases)
+contain such a build for Apple Silicon and Intel.
 
 There is also a command-line tool:
 
