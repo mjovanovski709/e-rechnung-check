@@ -2,8 +2,14 @@
 
 # E-Rechnung Check
 
-A small Mac app that answers one question about an invoice file: **is this
-really an e-invoice, and what does it actually say?**
+A Mac app to **check and create German e-invoices** (ZUGFeRD, Factur-X,
+XRechnung): see what an invoice really says, or turn your PDF into a ZUGFeRD
+invoice. It runs offline and is notarized by Apple.
+
+**[Download the latest version](https://github.com/mjovanovski709/e-rechnung-check/releases/latest)**
+(macOS 14 or newer, Apple Silicon and Intel).
+
+### Checking
 
 Drop a PDF or XML file on the window, or right-click it in Finder and choose
 **Quick Actions › E-Rechnung prüfen** ("Check e-invoice" on an English
@@ -18,16 +24,17 @@ system). The app tells you
 - whether mandatory fields are present, the sums add up and the IBAN checksum
   is valid.
 
-It can also **create** e-invoices: fill in a form, and the app either embeds
-the data into your existing invoice PDF (ZUGFeRD / Factur-X, profile EN 16931)
-or writes an XRechnung 3.0 XML file for public bodies. See
-[Creating an e-invoice](#creating-an-e-invoice).
+### Creating
+
+Fill in a form, and the app either embeds the data into your existing invoice
+PDF (ZUGFeRD / Factur-X, profile EN 16931) or writes an XRechnung 3.0 XML file
+for public bodies. See [Creating an e-invoice](#creating-an-e-invoice).
+
+### Privacy
 
 Everything runs on the Mac. The app is sandboxed and has no network
 permission, so it cannot send a file anywhere. It writes only where you save
 in the Save dialog.
-
-"E-Rechnung Check" is a working title.
 
 ![An accepted e-invoice](docs/screenshots/e-rechnung-ok.png)
 
